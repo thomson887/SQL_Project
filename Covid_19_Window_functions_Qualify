@@ -1,0 +1,11 @@
+# Practice window functions using Qualify
+
+SELECT
+  date,
+  countries_and_territories,
+  daily_deaths,
+FROM
+  `bigquery-public-data.covid19_ecdc_eu.covid_19_geographic_distribution_worldwide`
+QUALIFY (RANK() OVER (PARTITION BY date ORDER BY daily_deaths DESC)) = 1
+ORDER BY date
+
