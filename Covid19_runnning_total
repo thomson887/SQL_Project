@@ -1,0 +1,11 @@
+# To obtain the weekly average deaths and the running total of deaths for each country.
+
+SELECT
+  date,
+  countries_and_territories,
+  daily_deaths,
+  AVG(daily_deaths) OVER (PARTITION BY countries_and_territories ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS Weekly_Moving_Avg,
+  SUM(daily_deaths) OVER (PARTITION BY countries_and_territories ORDER BY date) AS Running_Total_Deaths
+FROM
+  `bigquery-public-data.covid19_ecdc_eu.covid_19_geographic_distribution_worldwide`
+WHERE countries_and_territories in ('India')
