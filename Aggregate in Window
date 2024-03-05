@@ -1,0 +1,21 @@
+With Total AS (
+  SELECT
+    countries_and_territories,
+    SUM(daily_deaths) as Total_deaths
+    
+  FROM
+    `bigquery-public-data.covid19_ecdc_eu.covid_19_geographic_distribution_worldwide`
+  GROUP BY
+    1
+)
+
+,ranked_countries AS (
+SELECT 
+countries_and_territories,
+Total.Total_deaths,
+RANK() OVER (ORDER BY Total.Total_deaths DESC) as death_rank
+FROM Total
+)
+
+SELECT countries_and_territories,ranked_countries.Total_deaths from ranked_countries where death_rank = 2
+-- QUALIFY (RANK() OVER (ORDER BY Total.Total_deaths)) =2
