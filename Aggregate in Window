@@ -28,7 +28,6 @@ FROM Total
 )
 
 SELECT countries_and_territories,ranked_countries.Total_deaths from ranked_countries where death_rank = 2
--- QUALIFY (RANK() OVER (ORDER BY Total.Total_deaths)) =2
 
 
 ==============================================================================================================
