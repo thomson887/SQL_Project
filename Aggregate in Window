@@ -1,3 +1,13 @@
+===========================================================================================================
+-- To find out the Country with the second most number of deaths due to covid-19.
+-- We can do this by using CTE or by using the QUALIFY clause.
+===========================================================================================================
+-- Method 1: Using CTE. 
+-- Total CTE gives the Total number of deaths for each country
+-- Ranked_countries CTE gives us the rank for each country based on the number of deaths.
+-- The final Select Statement will give us the country which holds the 2nd rank in deaths.
+===========================================================================================================
+
 With Total AS (
   SELECT
     countries_and_territories,
@@ -19,3 +29,16 @@ FROM Total
 
 SELECT countries_and_territories,ranked_countries.Total_deaths from ranked_countries where death_rank = 2
 -- QUALIFY (RANK() OVER (ORDER BY Total.Total_deaths)) =2
+
+
+==============================================================================================================
+-- Method 2: Using QUALIFY and entering the aggregate clause in the window statement
+===========================================================================================================
+
+  SELECT
+    countries_and_territories,
+    SUM(daily_deaths) as Total_deaths,
+  FROM
+    `bigquery-public-data.covid19_ecdc_eu.covid_19_geographic_distribution_worldwide`
+  GROUP BY 1
+  QUALIFY (rank() OVER (ORDER BY SUM(daily_deaths) DESC)) = 2
