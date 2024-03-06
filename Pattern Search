@@ -1,0 +1,8 @@
+-- To find all countries which have the word United in their names
+
+SELECT
+  *
+FROM
+  `bigquery-public-data.covid19_ecdc_eu.covid_19_geographic_distribution_worldwide`
+WHERE
+  UPPER(countries_and_territories) LIKE '%UNITED%'; 
