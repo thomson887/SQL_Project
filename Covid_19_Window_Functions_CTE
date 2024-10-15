@@ -1,4 +1,5 @@
 -- Window functions using CTE
+-- To find the country with the highest daily deaths.
 -- Using Row_number is ok if you are interested in obtaining only the country with the highest daily_deaths. Using ROW_NUMBER will only give you the first entry for each date irrespective of the country which have the same deaths on that particular date. If you want all --- countries with the same daily_death to appear in the output then you should use RANK() function
 -- If the output of the SQL code is to be used for further analysis then you may have to use RANK or DENSE_RANK depending upon how you want the data to be ranked. 
 
